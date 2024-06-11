@@ -1,9 +1,18 @@
-import "./css/welcome.css"
+import './css/welcome.css';
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
+
 function Welcome() {
+  const navigate = useNavigate()
+
+  const handleLogin = () => {
+    navigate("/login");
+  };
+
   return (
     <div className="welcome">
       <div className="welcome-nav">
-        <button>Login</button>
+        <button onClick={handleLogin}>Login</button>
       </div>
       
       <div className="welcome-body">
@@ -17,5 +26,6 @@ function Welcome() {
     </div>
   );
 }
+
 
 export default Welcome;

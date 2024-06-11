@@ -1,24 +1,21 @@
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom';
 import './css/login.css';
 
 const Login = (props) => {
   const [userName, setUser] = useState('')
   const [userError, setUserError] = useState('')
+  const navigate = useNavigate(); 
 
   const onButtonClick = () => {
-    const onButtonClick = () => {
-        setUserError('')
-      
-        if ('' === userName) {
-          setUserError('Please enter your username')
-          return
-        }
-      
-        if (!/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(userName)) {
-          setUserError('Please enter a valid username')
-          return
-        }
-      }
+    setUserError('')
+  
+    if ('' === userName) {
+      setUserError('Please enter your username')
+      return
+    }
+
+    navigate("/AddItems"); 
   }
 
   return (
