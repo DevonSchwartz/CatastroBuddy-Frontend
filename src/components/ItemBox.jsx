@@ -59,9 +59,9 @@ function ItemBox() {
         <>
             {isVisible && 
                 <div style={{
-                    marginLeft: '10%',
+                    marginLeft: '25%',
                     marginTop: '60px',
-                    width: '30%',
+                    width: '50%',
                 }}>
                     <button onClick={handleRemoveClick}>x</button>
                     {itemNameBox}

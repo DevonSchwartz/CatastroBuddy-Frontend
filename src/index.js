@@ -5,7 +5,7 @@ import './index.css';
 import Login from './components/login';
 import Welcome from './components/welcome';
 import AddItemButton from './components/AddItemButton';
-import EditItem from './components/editItem';
+import DamageComponent from './components/DamageComponent';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -15,6 +15,7 @@ root.render(
             <Route path="/" element={<Welcome />} />
             <Route path="/login" element={<Login />} />
             <Route path="/AddItems" element={<AddItemButton />}/>
+            <Route path="/Switch" element={<DamageComponent />}/>
         </Routes>
     </BrowserRouter>
   </React.StrictMode>
