@@ -1,5 +1,6 @@
-import { Box } from '@mui/material';
+import { Box, Button } from '@mui/material';
 import React, {useState} from 'react'
+import { useNavigate } from 'react-router-dom';
 
 const BoxStyle = {
     display: 'flex', 
@@ -9,9 +10,14 @@ const BoxStyle = {
 function ItemBox() {
 
     const [isVisible, setIsVisible] = useState(true);
+    const navigate = useNavigate();
     
     const handleRemoveClick = () => {
         setIsVisible(false);
+    };
+
+    const handleEditClick = () => {
+        navigate('/editItem');
     };
 
     const itemNameBox = (
@@ -68,6 +74,7 @@ function ItemBox() {
                     {descriptionBox}
                     {priceBox}
                     {uploadImage}
+                    <Button variant="contained" color="primary" onClick={handleEditClick}>Edit Item</Button>
                 </div>
             }
         </>
