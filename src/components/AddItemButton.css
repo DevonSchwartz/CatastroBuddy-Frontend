@@ -1,0 +1,17 @@
+button {
+    display: flex;
+    padding: 10px 25px;
+    margin-right: 20px;
+    font-family: 'Trebuchet MS', sans-serif;
+    color: #6f2020;
+    font-size: 130%;
+    background-color: #e35555;
+    border-style: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease; /* add transition effect */
+}
+  
+button:hover {
+    background-color: #ff8080; /* lighter shade of red */
+    transition: background-color 0.3s ease; /* add transition effect */
+}
