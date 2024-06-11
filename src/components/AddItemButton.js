@@ -1,23 +1,28 @@
-import React from 'react';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import './css/AddItemButton.css';
+import ItemBox from './ItemBox';
 
 const AddItemButton = () => {
-    const [divs, setDivs] = useState([]);
+    const [itemBoxes, setItemBoxes] = useState([]);
 
     const handleClick = () => {
-        // Add a new div
-        setDivs([...divs, <div key={divs.length}>Item</div>]);
+        setItemBoxes([...itemBoxes, <ItemBox key={itemBoxes.length} />]);
     };
 
     return (
-        <div>
-            {divs.map((_, index) => (
-                <div key={index} style={{ height: '50px', border: '1px solid black', marginBottom: '10px'}}></div>
-            ))}
-            <button onClick={handleClick}>
-                Add Item
-            </button>
+        <div className="container">
+            <div className="button-container">
+                <button onClick={handleClick}>
+                    Add Item
+                </button>
+            </div>
+            <div className="items-container">
+                {itemBoxes.map((itemBox) => (
+                    <div key={itemBox.key} style={{ marginBottom: '10px' }}>
+                        {itemBox}
+                    </div>
+                ))}
+            </div>
         </div>
     );
 };
