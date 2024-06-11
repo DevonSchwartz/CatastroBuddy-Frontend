@@ -5,6 +5,7 @@ import './index.css';
 import Login from './components/login';
 import Welcome from './components/welcome';
 import AddItemButton from './components/AddItemButton';
+import EditItem from './components/editItem';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
