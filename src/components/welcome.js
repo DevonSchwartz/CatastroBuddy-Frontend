@@ -1,5 +1,4 @@
-import './welcome.css';
-
+import "./css/welcome.css"
 function Welcome() {
   return (
     <div className="welcome">
