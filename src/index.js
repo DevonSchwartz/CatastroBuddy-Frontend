@@ -4,11 +4,12 @@ import './index.css';
 import Welcome from './welcome';
 import reportWebVitals from './reportWebVitals';
 import Login from './login';
+import ItemBox from './components/ItemBox';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <Login />
+    <ItemBox />
   </React.StrictMode>
 );
 
