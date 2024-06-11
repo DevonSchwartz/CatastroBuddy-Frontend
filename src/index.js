@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
+// import App from './App';
+import reportWebVitals from './reportWebVitals';
 import Welcome from './welcome';
 import reportWebVitals from './reportWebVitals';
 import Login from './login';
@@ -9,7 +11,7 @@ import ItemBox from './components/ItemBox';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <ItemBox />
+    <ItemBox/>
   </React.StrictMode>
 );
 
