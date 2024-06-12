@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import './css/login.css';
 
-const Login = (props) => {
+const Login = () => {
   const [userName, setUser] = useState('')
   const [userError, setUserError] = useState('')
   const navigate = useNavigate(); 

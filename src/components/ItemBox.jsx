@@ -1,12 +1,14 @@
-import { Box, Button } from '@mui/material';
-import React, {useState} from 'react'
+import { Box } from '@mui/material';
+import React, { useState } from 'react';
+import DamageComponent from './DamageComponent';
 import { useNavigate } from 'react-router-dom';
 
 const BoxStyle = {
-    display: 'flex', 
-    border: 1 
+    display: 'flex',
+    border: 1,
+    fontFamily: 'Arial, sans-serif'
 }
- 
+
 function ItemBox() {
 
     const [isVisible, setIsVisible] = useState(true);
@@ -23,62 +25,74 @@ function ItemBox() {
     const itemNameBox = (
         <Box
             color="black"
-            bgcolor="gray" p={1}
+            bgcolor="white" p={1}
             justifyContent="center"
             sx={BoxStyle}>
-                <header>Item Name</header>
+            <header>Item Name</header>
         </Box>
     );
 
     const descriptionBox = (
         <Box
             color="black"
-            bgcolor="gray" p={1}
+            bgcolor="white" p={1}
             justifyContent="center"
             sx={BoxStyle}>
-                <header>Description</header>
+            <header>Description</header>
         </Box>
     )
 
     const priceBox = (
         <Box
             color="black"
-            bgcolor="gray" p={1}
+            bgcolor="white" p={1}
             justifyContent="center"
             sx={BoxStyle}>
-                <header>Price</header>
+            <header>Price</header>
         </Box>
     )
 
     const uploadImage = (
         <Box
             color="black"
-            bgcolor="gray" p={1}
+            bgcolor="white" p={1}
             justifyContent="center"
             sx={BoxStyle}>
-                <img alt='Original Photo'></img>
-            </Box>
-
+            <img alt='Original Photo'></img>
+        </Box>
     )
 
     return (
         <>
-            {isVisible && 
+            {isVisible &&
                 <div style={{
-                    marginLeft: '10%',
+                    marginLeft: '25%',
                     marginTop: '60px',
-                    width: '30%',
+                    width: '50%',
+                    display: 'flex', 
+                    gap: '20px', 
+                    backgroundColor: 'white', 
+                    borderRadius: '5px', 
+                    border: '1px solid #ccc', 
+                    overflow: 'hidden', 
                 }}>
-                    <button onClick={handleRemoveClick}>x</button>
-                    {itemNameBox}
-                    {descriptionBox}
-                    {priceBox}
-                    {uploadImage}
+                    <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'stretch', padding: '10px' }}>
+                        <div style={{ width: '30px' }}> {}
+                            <button onClick={handleRemoveClick}>x</button>
+                        </div>
+                        {itemNameBox}
+                        {descriptionBox}
+                        {priceBox}
+                        {uploadImage}
+                    </div>
+                    <div style={{ flex: 1 }}>
+                        <DamageComponent />
+                    </div>
                     <Button variant="contained" color="primary" onClick={handleEditClick}>Edit Item</Button>
                 </div>
             }
         </>
     );
 }
- 
-export default ItemBox
+
+export default ItemBox;
