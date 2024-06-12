@@ -18,7 +18,8 @@ export const getClient = async(clientId) => {
 
 export const getAllItems = async(clientId) => {
     try {
-        return getClient(clientId).items;
+        let client = await getClient(clientId)
+        return client.items;
     } catch (error) {
         console.error(error);
     }

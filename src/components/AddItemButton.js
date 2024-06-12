@@ -1,12 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import './css/AddItemButton.css';
 import ItemBox from './ItemBox';
+
 
 const AddItemButton = () => {
     const [itemBoxes, setItemBoxes] = useState([]);
 
     const handleClick = () => {
-        setItemBoxes([...itemBoxes, <ItemBox key={itemBoxes.length} />]);
+        setItemBoxes([...itemBoxes, <ItemBox 
+            key={itemBoxes.length}
+            itemName="Enter Item"
+            price="Enter Price"
+            description="Enter Description"
+            originalPhoto="Insert Photo"
+             />]);
     };
 
     return (
