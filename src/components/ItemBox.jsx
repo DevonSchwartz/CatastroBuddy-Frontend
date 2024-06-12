@@ -1,5 +1,5 @@
 import { Box, Button } from '@mui/material';
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import DamageComponent from './DamageComponent';
 import { useNavigate } from 'react-router-dom';
 
@@ -9,7 +9,12 @@ const BoxStyle = {
     fontFamily: 'Arial, sans-serif'
 }
 
-function ItemBox() {
+function ItemBox(props) {
+    const itemName = props.itemName
+    const description = props.description
+    const price = props.price
+    const originalPhoto = props.original
+
 
     const [isVisible, setIsVisible] = useState(true);
     const navigate = useNavigate();
@@ -28,7 +33,7 @@ function ItemBox() {
             bgcolor="white" p={1}
             justifyContent="center"
             sx={BoxStyle}>
-            <header>Item Name</header>
+            <header>{itemName}</header>
         </Box>
     );
 
@@ -39,7 +44,7 @@ function ItemBox() {
             justifyContent="center"
             sx={BoxStyle}>
 
-            <header>Description</header>
+            <header>{description}</header>
         </Box>
     )
 
@@ -49,7 +54,7 @@ function ItemBox() {
             bgcolor="white" p={1}
             justifyContent="center"
             sx={BoxStyle}>
-            <header>Price</header>
+            <header>{price}</header>
         </Box>
     )
 
@@ -59,7 +64,7 @@ function ItemBox() {
             bgcolor="white" p={1}
             justifyContent="center"
             sx={BoxStyle}>
-            <img alt='Original Photo'></img>
+            <img src={originalPhoto} alt='Original Photo'></img>
         </Box>
     )
 

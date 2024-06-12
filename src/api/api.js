@@ -1,5 +1,5 @@
 // import axios from 'axios';
-const axios = require('axios');
+import axios from 'axios';
 
 const addressApi = axios.create({
     baseURL: 'http://localhost:3001', // Replace the port number if necessary
@@ -18,7 +18,8 @@ export const getClient = async(clientId) => {
 
 export const getAllItems = async(clientId) => {
     try {
-        return getClient(clientId).items;
+        let client = await getClient(clientId)
+        return client.items;
     } catch (error) {
         console.error(error);
     }

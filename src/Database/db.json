@@ -1,30 +1,6 @@
 {
-    "John Doe": {
-      "items": [
-        {
-          "itemID": 1,
-          "itemName": "TV",
-          "price": 1999,
-          "damaged": true,
-          "photo": "https://images-na.ssl-images-amazon.com/images/I/91PJmpMjVJL.jpg",
-          "description": "Samsung TV in Living Room, Water Damage"
-        },
-        {
-          "itemID": 2,
-          "itemName": "Couch",
-          "price": 599,
-          "damaged": false,
-          "photo": "https://s1.ax1x.com/2020/11/04/Bcpb6J.jpg",
-          "description": "BaseBoard is cracked due to soakage"
-        },
-        {
-          "itemID": 3,
-          "itemName": "Laptop",
-          "price": 1000,
-          "damaged": false,
-          "photo": "laptop.jpg",
-          "description": "A new laptop",
-        }
-      ]
-    }
+  "John Doe": {
+    "items": [
+    ]
   }
+}
