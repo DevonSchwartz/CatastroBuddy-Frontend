@@ -49,18 +49,12 @@ const EditItem = ({ item }) => {
     }}, []
   )
 
-  let newItem = new Item(); 
-
-  Item.itemID = Math.random();
   Item.itemName = name;
   Item.description = description
   Item.price = price
   Item.damaged = false
   Item.description = description
   Item.photo = image
-
-
-  addItem(userName, newItem)
 
   return (
     <div className="edit-item">
@@ -97,7 +91,10 @@ const EditItem = ({ item }) => {
             onChange={handleImageChange}
           />
         </div>
-        <button type="submit">Save Changes</button>
+        <button type="submit" onClick={() => {
+          addItem(userName, Item)
+          navigate(-1) 
+        }}>Save Changes</button>
       </form>
     </div>
   );
