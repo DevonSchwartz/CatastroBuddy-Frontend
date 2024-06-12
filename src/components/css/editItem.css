@@ -40,3 +40,13 @@
   .edit-item button:hover {
     background-color: #0056b3;
   }
+
+  .edit-item .close-button {
+    background-color: red;
+    font-size: 20px;
+    padding: 5px 10px;
+    border: none;
+  }
+  
+  
+  
