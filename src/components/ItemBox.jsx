@@ -1,6 +1,7 @@
 import { Box } from '@mui/material';
 import React, { useState } from 'react';
 import DamageComponent from './DamageComponent';
+import { useNavigate } from 'react-router-dom';
 
 const BoxStyle = {
     display: 'flex',
@@ -11,9 +12,14 @@ const BoxStyle = {
 function ItemBox() {
 
     const [isVisible, setIsVisible] = useState(true);
-
+    const navigate = useNavigate();
+    
     const handleRemoveClick = () => {
         setIsVisible(false);
+    };
+
+    const handleEditClick = () => {
+        navigate('/editItem');
     };
 
     const itemNameBox = (
@@ -82,6 +88,7 @@ function ItemBox() {
                     <div style={{ flex: 1 }}>
                         <DamageComponent />
                     </div>
+                    <Button variant="contained" color="primary" onClick={handleEditClick}>Edit Item</Button>
                 </div>
             }
         </>

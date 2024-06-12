@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './css/editItem.css';
 
 const EditItem = ({ item }) => {
@@ -12,6 +13,7 @@ const EditItem = ({ item }) => {
   const [description, setDescription] = useState(item?.description || defaultItem.description);
   const [price, setPrice] = useState(item?.price || defaultItem.price);
   const [image, setImage] = useState(null);
+  const navigate = useNavigate();
 
   const handleImageChange = (e) => {
     setImage(e.target.files[0]);
@@ -22,8 +24,13 @@ const EditItem = ({ item }) => {
     console.log('Form submitted', { name, description, price, image });
   };
 
+  const handleCancel = () => {
+    navigate(-1);
+  };
+
   return (
     <div className="edit-item">
+      <button className="close-button" onClick={handleCancel}>x</button>
       <h2>Edit Item</h2>
       <form onSubmit={handleSubmit}>
         <div>
