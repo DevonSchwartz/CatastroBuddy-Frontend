@@ -1,4 +1,4 @@
-import { Box } from '@mui/material';
+import { Box, Button } from '@mui/material';
 import React, { useState } from 'react';
 import DamageComponent from './DamageComponent';
 import { useNavigate } from 'react-router-dom';
@@ -77,8 +77,9 @@ function ItemBox() {
                     overflow: 'hidden', 
                 }}>
                     <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'stretch', padding: '10px' }}>
-                        <div style={{ width: '30px' }}> {}
+                        <div style={{ display: 'flex', alignItems: 'center' }}>
                             <button onClick={handleRemoveClick}>x</button>
+                            <Button variant="contained" color="primary" onClick={handleEditClick} style={{ marginLeft: '10px' }}>Edit Item</Button>
                         </div>
                         {itemNameBox}
                         {descriptionBox}
@@ -88,7 +89,6 @@ function ItemBox() {
                     <div style={{ flex: 1 }}>
                         <DamageComponent />
                     </div>
-                    <Button variant="contained" color="primary" onClick={handleEditClick}>Edit Item</Button>
                 </div>
             }
         </>
