@@ -1,17 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { Routes, Route, BrowserRouter } from 'react-router-dom';
-import './index.css';
 import Login from './components/login';
 import Welcome from './components/welcome';
 import AddItemButton from './components/AddItemButton';
 import DamageComponent from './components/DamageComponent';
 import EditItem from './components/editItem';
-import ItemBox from './components/ItemBox';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
 root.render(
-  <React.StrictMode>
+    <React.StrictMode>
     <BrowserRouter>
       <Routes>
             <Route path="/" element={<Welcome />} />
@@ -21,6 +20,6 @@ root.render(
             <Route path="/editItem" element={<EditItem />}/>
         </Routes>
     </BrowserRouter>
-  </React.StrictMode>
+  </React.StrictMode>  
 );
 

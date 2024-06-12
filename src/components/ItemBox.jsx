@@ -1,5 +1,5 @@
 import { Box, Button } from '@mui/material';
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import DamageComponent from './DamageComponent';
 import { useNavigate } from 'react-router-dom';
 
@@ -10,7 +10,6 @@ const BoxStyle = {
 }
 
 function ItemBox() {
-
     const [isVisible, setIsVisible] = useState(true);
     const navigate = useNavigate();
     
