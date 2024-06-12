@@ -6,7 +6,12 @@ const BoxStyle = {
     border: 1 
 }
  
-function ItemBox() {
+function ItemBox(props) {
+
+    let itemName = props.itemName;
+    let description = props.description;
+    let price = props.price
+    let originalPhoto = props.originalPhoto
 
     const [isVisible, setIsVisible] = useState(true);
     
@@ -20,7 +25,7 @@ function ItemBox() {
             bgcolor="gray" p={1}
             justifyContent="center"
             sx={BoxStyle}>
-                <header>Item Name</header>
+                <header>{itemName}</header>
         </Box>
     );
 
@@ -30,7 +35,7 @@ function ItemBox() {
             bgcolor="gray" p={1}
             justifyContent="center"
             sx={BoxStyle}>
-                <header>Description</header>
+                <header>{description}</header>
         </Box>
     )
 
@@ -40,7 +45,7 @@ function ItemBox() {
             bgcolor="gray" p={1}
             justifyContent="center"
             sx={BoxStyle}>
-                <header>Price</header>
+                <header>{price}</header>
         </Box>
     )
 

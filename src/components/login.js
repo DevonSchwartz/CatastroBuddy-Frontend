@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect} from 'react'
 import { useNavigate } from 'react-router-dom';
 import './css/login.css';
 
@@ -14,10 +14,13 @@ const Login = () => {
       setUserError('Please enter your username')
       return
     }
-
     navigate("/AddItems"); 
   }
 
+  useEffect(() => {
+    localStorage.setItem('userName', userName);
+  }, [userName]);
+  
   return (
     <div className={'mainContainer'}>
       <div className={'titleContainer'}>
