@@ -38,6 +38,7 @@ function ItemBox() {
             bgcolor="white" p={1}
             justifyContent="center"
             sx={BoxStyle}>
+
             <header>Description</header>
         </Box>
     )
