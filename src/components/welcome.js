@@ -20,7 +20,7 @@ function Welcome() {
           Welcome to
         </label>
         <label className="welcome-body-sub-text">
-          Amazing Project
+          CatastroBuddy
         </label>
       </div>
     </div>
