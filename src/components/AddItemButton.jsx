@@ -1,19 +1,15 @@
-import React, { useState } from 'react';
 import './css/AddItemButton.css';
-import ItemBox from './ItemBox';
 
+// Add an ItemBox onto the user's item page. It will execute the
+// handler to add a box
+// addBoxHandler: function pointer that will add an ItemBox to the BoxContext
+const AddItemButton = (props) => {
 
-const AddItemButton = () => {
-    const [itemBoxes, setItemBoxes] = useState([]);
+    // function from Box-Provider to add box
+    const addBoxHandler = props.addBoxHandler
 
     const handleClick = () => {
-        setItemBoxes([...itemBoxes, <ItemBox 
-            key={itemBoxes.length}
-            itemName="Enter Item"
-            price="Enter Price"
-            description="Enter Description"
-            originalPhoto="Insert Photo"
-             />]);
+        addBoxHandler()
     };
 
     return (
@@ -22,13 +18,6 @@ const AddItemButton = () => {
                 <button onClick={handleClick}>
                     Add Item
                 </button>
-            </div>
-            <div className="items-container">
-                {itemBoxes.map((itemBox) => (
-                    <div key={itemBox.key} style={{ marginBottom: '10px' }}>
-                        {itemBox}
-                    </div>
-                ))}
             </div>
         </div>
     );

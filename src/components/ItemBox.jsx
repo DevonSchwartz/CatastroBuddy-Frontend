@@ -1,30 +1,41 @@
 import { Box, Button } from '@mui/material';
-import React, { useState, useContext } from 'react';
 import DamageComponent from './DamageComponent';
-import { useNavigate } from 'react-router-dom';
 
+// used for subboxes 
 const BoxStyle = {
     display: 'flex',
     border: 1,
     fontFamily: 'Arial, sans-serif'
 }
 
-function ItemBox(props) {
+
+
+// Hold an individual household item. Information can be edited by the user
+// ItemName: string
+// description: string
+// price: number
+// originalPhoto: string (base64)
+// boxId: number
+// deleteBoxFunction: function pointer that takes a number
+// contextProviderRouter: function pointer that takes a string
+const ItemBox = (props) => {
+    // parameterized values
     const itemName = props.itemName
     const description = props.description
     const price = props.price
     const originalPhoto = props.original
+    const boxId = props.boxId
 
+    // parameterized functions
+    const deleteBox = props.deleteBoxFunction
+    const contextProviderRouter = props.contextProviderRouter
 
-    const [isVisible, setIsVisible] = useState(true);
-    const navigate = useNavigate();
-    
     const handleRemoveClick = () => {
-        setIsVisible(false);
+        deleteBox(boxId);
     };
 
     const handleEditClick = () => {
-        navigate('/editItem');
+        contextProviderRouter('/editItem');
     };
 
     const itemNameBox = (
@@ -69,35 +80,32 @@ function ItemBox(props) {
     )
 
     return (
-        <>
-            {isVisible &&
-                <div style={{
-                    marginLeft: '25%',
-                    marginTop: '60px',
-                    width: '50%',
-                    display: 'flex', 
-                    gap: '20px', 
-                    backgroundColor: 'white', 
-                    borderRadius: '5px', 
-                    border: '1px solid #ccc', 
-                    overflow: 'hidden', 
-                }}>
-                    <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'stretch', padding: '10px' }}>
-                        <div style={{ display: 'flex', alignItems: 'center' }}>
-                            <button onClick={handleRemoveClick}>x</button>
-                            <Button variant="contained" color="primary" onClick={handleEditClick} style={{ marginLeft: '10px' }}>Edit Item</Button>
-                        </div>
-                        {itemNameBox}
-                        {descriptionBox}
-                        {priceBox}
-                        {uploadImage}
-                    </div>
-                    <div style={{ flex: 1 }}>
-                        <DamageComponent />
-                    </div>
+        <div style={{
+            marginLeft: '25%',
+            marginTop: '60px',
+            width: '50%',
+            display: 'flex', 
+            gap: '20px', 
+            backgroundColor: 'white', 
+            borderRadius: '5px', 
+            border: '1px solid #ccc', 
+            overflow: 'hidden', 
+        }}>
+            <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'stretch', padding: '10px' }}>
+                <div style={{ display: 'flex', alignItems: 'center' }}>
+                    <button onClick={handleRemoveClick}>x</button>
+                    <Button variant="contained" color="primary" onClick={handleEditClick} 
+                        style={{ marginLeft: '10px' }}>Edit Item</Button>
                 </div>
-            }
-        </>
+                {itemNameBox}
+                {descriptionBox}
+                {priceBox}
+                {uploadImage}
+            </div>
+            <div style={{ flex: 1 }}>
+                <DamageComponent />
+            </div>
+        </div>
     );
 }
 
