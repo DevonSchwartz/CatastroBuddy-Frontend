@@ -1,7 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React, {useState} from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Item } from '../schema';
-import { addItem } from '../api/api';
 import './css/editItem.css';
 
 const EditItem = ({ item }) => {
@@ -11,7 +9,6 @@ const EditItem = ({ item }) => {
     price: 100,
   };
 
-  const [userName, setUserName] = useState('')
   const [name, setName] = useState(item?.name || defaultItem.name);
   const [description, setDescription] = useState(item?.description || defaultItem.description);
   const [price, setPrice] = useState(item?.price || defaultItem.price);
@@ -40,21 +37,6 @@ const EditItem = ({ item }) => {
   const handleCancel = () => {
     navigate(-1);
   };
-
-
-  useEffect(() => {
-    const name = localStorage.getItem('userName');
-    if (name) {
-      setUserName(name)
-    }}, []
-  )
-
-  Item.itemName = name;
-  Item.description = description
-  Item.price = price
-  Item.damaged = false
-  Item.description = description
-  Item.photo = image
 
   return (
     <div className="edit-item">
@@ -92,7 +74,6 @@ const EditItem = ({ item }) => {
           />
         </div>
         <button type="submit" onClick={() => {
-          addItem(userName, Item)
           navigate(-1) 
         }}>Save Changes</button>
       </form>
