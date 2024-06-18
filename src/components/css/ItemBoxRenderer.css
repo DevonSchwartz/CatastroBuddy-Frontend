@@ -4,3 +4,9 @@
     font-family: Arial;
     color: #e35555
 }
+
+.addButton {
+    margin-top: 2%;
+    display: flex; 
+    justify-content:center
+}
