@@ -103,7 +103,9 @@ const ItemBox = (props) => {
                 {uploadImage}
             </div>
             <div style={{ flex: 1 }}>
-                <DamageComponent />
+                <DamageComponent 
+                    key={boxId} 
+                />
             </div>
         </div>
     );

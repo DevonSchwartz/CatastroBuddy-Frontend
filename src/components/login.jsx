@@ -18,7 +18,8 @@ const Login = () => {
   }
 
   useEffect(() => {
-    localStorage.setItem('userName', userName);
+    let clientData = {clientId: userName, damaged: false, items: []}
+    localStorage.setItem('clientJSON', JSON.stringify(clientData));
   }, [userName]);
   
   return (
