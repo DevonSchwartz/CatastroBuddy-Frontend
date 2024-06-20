@@ -1,4 +1,4 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 export const BoxContext = createContext();
@@ -18,15 +18,6 @@ export const BoxProvider = ({ children }) => {
       ...clientJSON?.items?.slice(0, index),
       ...clientJSON?.items?.slice(index + 1)
     ]
-    console.log(boxes.slice(index + 1))
-    console.log(index)
-
-    const newBoxes = [
-      ...boxes.slice(0,index),
-      ...boxes.slice(index + 1)
-    ]
-
-    setBoxes(newBoxes)
 
     if (clientJSON?.items) {
       clientJSON.items = newItems

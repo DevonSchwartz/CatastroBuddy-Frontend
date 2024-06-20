@@ -18,6 +18,8 @@ const ItemBoxRenderer = () => {
         }
     }, []);
 
+    console.log(storedData)
+
     return (
         <div>
             <h1 className="header">
@@ -40,7 +42,7 @@ const ItemBoxRenderer = () => {
                 )}
             </div>
             <div className="addButton">
-                <AddItemButton addBoxHandler={addBox}></AddItemButton>
+                <AddItemButton totalNumBoxes={boxes.length} addBoxHandler={addBox}></AddItemButton>
             </div>
         </div>
     )

@@ -7,9 +7,17 @@ const AddItemButton = (props) => {
 
     // function from Box-Provider to add box
     const addBoxHandler = props.addBoxHandler
+    const totalNumBoxes = props.totalNumBoxes
+
+    let clientJSON = JSON.parse(localStorage.getItem("clientJSON")); 
+
 
     const handleClick = () => {
-        addBoxHandler()
+        console.log(totalNumBoxes)
+        console.log(clientJSON?.items?.length)
+        if (clientJSON?.items?.length === totalNumBoxes) {
+            addBoxHandler()
+        }
     };
 
     return (
