@@ -39,10 +39,10 @@ const ItemBox = (props) => {
         contextProviderRouter('/editItem', 
             {state: {
                 item: {
-                    itemName: null,
-                    description: null,
-                    price: 0.0,
-                    originalPhoto: null,
+                    itemName: itemName,
+                    description: description,
+                    price: price,
+                    originalPhoto: originalPhoto,
                     damaged: false,
                     damagedPhoto: null,
                 },

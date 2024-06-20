@@ -17,12 +17,10 @@ const EditItem = () => {
     price: 100,
   };
 
-  const [name, setName] = useState(state.item?.name || defaultItem.name);
-  const [description, setDescription] = useState(state.item?.description || defaultItem.description);
-  const [price, setPrice] = useState(state.item?.price || defaultItem.price);
-  const [image, setImage] = useState(state.item?.originalPhoto || defaultItem.originalPhoto);
-
-
+  const [name, setName] = useState(state?.item?.itemName || defaultItem.name);
+  const [description, setDescription] = useState(state?.item?.description || defaultItem.description);
+  const [price, setPrice] = useState(state?.item?.price || defaultItem.price);
+  const [image, setImage] = useState(state?.item?.originalPhoto || defaultItem.originalPhoto);
 
   // Add an item if necessary or mutate an existing item
   useEffect(() => {
@@ -35,7 +33,7 @@ const EditItem = () => {
   if (storedData?.items && state?.index >= storedData?.items?.length) {
     storedData.items = [...storedData.items, state.item]
   }
-  
+
   // handler to save items to local storage. Will be trigged when save is pressed
   const saveToLocalStorage = () => {
     if (storedData?.items?.[state?.index]) {
