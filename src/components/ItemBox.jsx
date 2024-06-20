@@ -32,7 +32,9 @@ const ItemBox = (props) => {
     const contextProviderRouter = props.contextProviderRouter
 
     const handleRemoveClick = () => {
-        deleteBox(boxId);
+        console.log(boxIndex)
+        deleteBox(boxId, boxIndex);
+        console.log(boxIndex)
     };
 
     const handleEditClick = () => {
