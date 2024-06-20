@@ -15,8 +15,8 @@ export const BoxProvider = ({ children }) => {
     setBoxes(boxes.filter(box => box.id !== id));
   };
 
-  const goToPage = (path) => {
-    navigate(path);
+  const goToPage = (path, state) => {
+    navigate(path, state);
   };
 
   return (

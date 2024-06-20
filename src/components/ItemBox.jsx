@@ -25,6 +25,7 @@ const ItemBox = (props) => {
     const price = props.price
     const originalPhoto = props.original
     const boxId = props.boxId
+    const boxIndex = props.boxIndex
 
     // parameterized functions
     const deleteBox = props.deleteBoxFunction
@@ -35,7 +36,18 @@ const ItemBox = (props) => {
     };
 
     const handleEditClick = () => {
-        contextProviderRouter('/editItem');
+        contextProviderRouter('/editItem', 
+            {state: {
+                item: {
+                    itemName: null,
+                    description: null,
+                    price: 0.0,
+                    originalPhoto: null,
+                    damaged: false,
+                    damagedPhoto: null,
+                },
+                index: boxIndex
+        }});
     };
 
     const itemNameBox = (

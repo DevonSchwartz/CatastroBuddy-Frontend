@@ -1,24 +1,30 @@
 import React, {useState, useEffect} from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation} from 'react-router-dom';
 import './css/editItem.css';
 
 
 // Page to edit the information of a specific household item
 // If item is null, then we are adding a household item to the database
 // Four fields: name, description, price (number), originalPhoto (base64)
-const EditItem = ({ item }) => {
+const EditItem = () => {
   const [storedData, setStoredData] = useState(null);
-
+  const location = useLocation();
+  const { state } = location; // item and index passed in from box
+  
   const defaultItem = {
     name: 'Sample Item',
     description: 'This is a sample item.',
     price: 100,
   };
 
+  const [name, setName] = useState(state.item?.name || defaultItem.name);
+  const [description, setDescription] = useState(state.item?.description || defaultItem.description);
+  const [price, setPrice] = useState(state.item?.price || defaultItem.price);
+  const [image, setImage] = useState(state.item?.originalPhoto || defaultItem.originalPhoto);
 
 
-  // Add an item if necessary 
-  let items = null
+
+  // Add an item if necessary or mutate an existing item
   useEffect(() => {
       const clientData = localStorage.getItem('clientJSON');
       if (clientData) {
@@ -26,34 +32,22 @@ const EditItem = ({ item }) => {
       }
   }, []);
   
-  if (storedData) {
-      items = storedData.items
+  if (storedData?.items && state?.index >= storedData?.items?.length) {
+    storedData.items = [...storedData.items, state.item]
   }
-
-  if (!item && items) {
-    items = [...items, 
-        { itemName: null, 
-          description: null, 
-          price: 0.0, 
-          originalPhoto: null, 
-          damaged: false, 
-          damagedPhoto: null
-        }
-      ]
-  }
-
+  
   // handler to save items to local storage. Will be trigged when save is pressed
   const saveToLocalStorage = () => {
-    if (storedData) {
-      storedData.items = items
+    if (storedData?.items?.[state?.index]) {
+      storedData.items[state.index].itemName = name
+      storedData.items[state.index].description = description
+      storedData.items[state.index].price = price
+      storedData.items[state.index].originalPhoto = image
       localStorage.setItem('clientJSON', JSON.stringify(storedData));
     }
   };
 
-  const [name, setName] = useState(item?.name || defaultItem.name);
-  const [description, setDescription] = useState(item?.description || defaultItem.description);
-  const [price, setPrice] = useState(item?.price || defaultItem.price);
-  const [image, setImage] = useState(item?.originalPhoto || defaultItem.originalPhoto);
+  
   const navigate = useNavigate();
 
   const handleImageChange = (e) => {

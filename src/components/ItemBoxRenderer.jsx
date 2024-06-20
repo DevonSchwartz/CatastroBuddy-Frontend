@@ -10,7 +10,6 @@ import "./css/ItemBoxRenderer.css"
 const ItemBoxRenderer = () => {
     const {boxes, addBox, deleteBox, goToPage} = useContext(BoxContext)
     const [storedData, setStoredData] = useState(null);
-    let items = null
 
     useEffect(() => {
         const clientData = localStorage.getItem('clientJSON');
@@ -18,10 +17,6 @@ const ItemBoxRenderer = () => {
             setStoredData(JSON.parse(clientData));
         }
     }, []);
-
-    if (storedData) {
-        items = storedData.items
-    }
 
     return (
         <div>
@@ -32,11 +27,12 @@ const ItemBoxRenderer = () => {
                 {boxes.map((box, index) => (
                     <ItemBox
                         key={box.id}
-                        itemName={itemNotFound(items,index,"itemName") ? `[Item]`: items[index].itemName}
-                        description={itemNotFound(items,index,"description") ? `[Description]`: items[index].description}
-                        price={itemNotFound(items,index,"description") ? `[Price]`: items[index].price}
-                        originalPhoto={itemNotFound(items,index,"originalPhoto") ? null: items[index].originalPhoto}
+                        itemName={itemNotFound(storedData?.items,index,"itemName") ? `[Item]`: storedData.items[index].itemName}
+                        description={itemNotFound(storedData?.items,index,"description") ? `[Description]`: storedData.items[index].description}
+                        price={itemNotFound(storedData?.items,index,"description") ? `[Price]`: storedData.items[index].price}
+                        originalPhoto={itemNotFound(storedData?.items,index,"originalPhoto") ? null: storedData.items[index].originalPhoto}
                         boxId={box.id}
+                        boxIndex={index}
                         deleteBoxFunction={deleteBox}
                         contextProviderRouter={goToPage}>
                     </ItemBox>
