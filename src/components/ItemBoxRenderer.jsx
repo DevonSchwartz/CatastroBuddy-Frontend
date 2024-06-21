@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from "react";
+import React, {useContext} from "react";
 import AddItemButton from "./AddItemButton"
 import ItemBox from "./ItemBox"
 import { BoxContext } from "../context-providers/BoxContext";
@@ -8,17 +8,7 @@ import "./css/ItemBoxRenderer.css"
 // Render all the ItemBoxes from the current session's state
 // TODO: Connect backend REST API call to load items from the DB 
 const ItemBoxRenderer = () => {
-    const {boxes, addBox, deleteBox, goToPage} = useContext(BoxContext)
-    const [storedData, setStoredData] = useState(null);
-
-    useEffect(() => {
-        const clientData = localStorage.getItem('clientJSON');
-        if (clientData) {
-            setStoredData(JSON.parse(clientData));
-        }
-    }, []);
-
-    console.log(storedData)
+    const {boxes, deleteBox, goToPage, items} = useContext(BoxContext)
 
     return (
         <div>
@@ -29,10 +19,10 @@ const ItemBoxRenderer = () => {
                 {boxes.map((box, index) => (
                     <ItemBox
                         key={box.id}
-                        itemName={itemNotFound(storedData?.items,index,"itemName") ? `[Item]`: storedData.items[index].itemName}
-                        description={itemNotFound(storedData?.items,index,"description") ? `[Description]`: storedData.items[index].description}
-                        price={itemNotFound(storedData?.items,index,"description") ? `[Price]`: storedData.items[index].price}
-                        originalPhoto={itemNotFound(storedData?.items,index,"originalPhoto") ? null: storedData.items[index].originalPhoto}
+                        itemName={itemNotFound(items,index,"itemName") ? `[Item]`: items?.[index].itemName}
+                        description={itemNotFound(items,index,"description") ? `[Description]`: items?.[index].description}
+                        price={itemNotFound(items,index,"description") ? `[Price]`: items?.[index].price}
+                        originalPhoto={itemNotFound(items,index,"originalPhoto") ? null: items?.[index].originalPhoto}
                         boxId={box.id}
                         boxIndex={index}
                         deleteBoxFunction={deleteBox}
@@ -42,7 +32,7 @@ const ItemBoxRenderer = () => {
                 )}
             </div>
             <div className="addButton">
-                <AddItemButton totalNumBoxes={boxes.length} addBoxHandler={addBox}></AddItemButton>
+                <AddItemButton></AddItemButton>
             </div>
         </div>
     )

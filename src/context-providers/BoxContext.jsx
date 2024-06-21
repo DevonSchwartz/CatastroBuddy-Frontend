@@ -1,29 +1,36 @@
-import React, { createContext, useState, useEffect } from 'react';
+import React, { createContext, useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 
 export const BoxContext = createContext();
 
 export const BoxProvider = ({ children }) => {
   const [boxes, setBoxes] = useState([]);
+  const [items, setItems] = useState([])
+  const [clientId, setClientId] = useState("")
   const navigate = useNavigate();
+
+  // useEffect(() => {
+  //   const clientData = localStorage.getItem('clientJSON');
+  //   if (clientData) {
+  //     setStoredData(JSON.parse(clientData));
+  //   }
+  // }, []);
 
   const addBox = () => {
     setBoxes([...boxes, { id: Date.now() }]);
   };
 
   const deleteBox = (id, index) => {
-    let clientJSON = JSON.parse(localStorage.getItem("clientJSON")); 
-
     const newItems = [
-      ...clientJSON?.items?.slice(0, index),
-      ...clientJSON?.items?.slice(index + 1)
+      ...items?.slice(0, index),
+      ...items?.slice(index + 1)
     ]
 
-    if (clientJSON?.items) {
-      clientJSON.items = newItems
+    if (items) {
+      setItems(newItems)
     }
 
-    localStorage.setItem('clientJSON', JSON.stringify(clientJSON));
+    // localStorage.setItem('clientJSON', JSON.stringify(storedData));
 
     setBoxes(boxes.filter(box => box.id !== id));
   };
@@ -33,7 +40,7 @@ export const BoxProvider = ({ children }) => {
   };
 
   return (
-    <BoxContext.Provider value={{ boxes, addBox, deleteBox, goToPage }}>
+    <BoxContext.Provider value={{ boxes, addBox, deleteBox, goToPage, items, setItems, clientId, setClientId}}>
       {children}
     </BoxContext.Provider>
   );
