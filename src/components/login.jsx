@@ -1,11 +1,14 @@
-import React, { useState, useEffect} from 'react'
+import React, { useState, useContext} from 'react'
 import { useNavigate } from 'react-router-dom';
+import { BoxContext } from "../context-providers/BoxContext";
 import './css/login.css';
 
 const Login = () => {
   const [userName, setUser] = useState('')
   const [userError, setUserError] = useState('')
   const navigate = useNavigate(); 
+  const {setClientId} = useContext(BoxContext)
+
 
   const onButtonClick = () => {
     setUserError('')
@@ -14,12 +17,14 @@ const Login = () => {
       setUserError('Please enter your username')
       return
     }
+    setClientId(userName)
     navigate("/AddItems"); 
   }
 
-  useEffect(() => {
-    localStorage.setItem('userName', userName);
-  }, [userName]);
+  // useEffect(() => {
+  //   let clientData = {clientId: userName, items: []}
+  //   localStorage.setItem('clientJSON', JSON.stringify(clientData));
+  // }, [userName]);
   
   return (
     <div className={'mainContainer'}>

@@ -1,18 +1,52 @@
-import React, {useState} from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, {useState, useContext} from 'react';
+import { useNavigate, useLocation} from 'react-router-dom';
+import { BoxContext } from "../context-providers/BoxContext";
 import './css/editItem.css';
 
-const EditItem = ({ item }) => {
+
+// Page to edit the information of a specific household item
+// If item is null, then we are adding a household item to the database
+// Four fields: name, description, price (number), originalPhoto (base64)
+const EditItem = () => {
+  const location = useLocation();
+  const { state } = location; // item and index passed in from box
+
+  const {items, setItems} = useContext(BoxContext)
+  
   const defaultItem = {
     name: 'Sample Item',
     description: 'This is a sample item.',
     price: 100,
   };
 
-  const [name, setName] = useState(item?.name || defaultItem.name);
-  const [description, setDescription] = useState(item?.description || defaultItem.description);
-  const [price, setPrice] = useState(item?.price || defaultItem.price);
-  const [image, setImage] = useState(null);
+  const [name, setName] = useState(state?.item?.itemName || defaultItem.name);
+  const [description, setDescription] = useState(state?.item?.description || defaultItem.description);
+  const [price, setPrice] = useState(state?.item?.price || defaultItem.price);
+  const [image, setImage] = useState(state?.item?.originalPhoto || defaultItem.originalPhoto);
+  // const [newItems, setNewItems] = useState([])
+  
+  // if (items && state?.index >= items.length) {
+  //   setNewItems([...items, state.item])
+  // } else {
+  //   setNewItems(items)
+  // }
+
+  let newItems = items && state?.index >= items.length ? [...items, state.item] : items
+
+
+  // handler to save items to local storage. Will be trigged when save is pressed
+  const saveToLocalStorage = () => {
+    if (newItems?.[state?.index]) {
+      newItems[state.index].itemName = name
+      newItems[state.index].description = description
+      newItems[state.index].price = price
+      newItems[state.index].originalPhoto = image
+      setItems(newItems)
+      console.log(items)
+    }
+  };
+
+  
   const navigate = useNavigate();
 
   const handleImageChange = (e) => {
@@ -70,11 +104,14 @@ const EditItem = ({ item }) => {
           <label>Photo:</label>
           <input
             type="file"
+            accept="image/png, image/jpeg"
+            name="image"
             onChange={handleImageChange}
           />
         </div>
         <button type="submit" onClick={() => {
-          navigate(-1) 
+          navigate(-1)
+          saveToLocalStorage()
         }}>Save Changes</button>
       </form>
     </div>
