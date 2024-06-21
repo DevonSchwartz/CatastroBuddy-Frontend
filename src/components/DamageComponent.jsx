@@ -1,12 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useContext} from 'react';
+
 import Switch from '@mui/material/Switch';
 import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
 import './css/DamageComponent.css'; 
+import { BoxContext } from "../context-providers/BoxContext";
 
-const DamageComponent = () => {
+
+
+
+const DamageComponent = (props) => {
     const [isDamaged, setIsDamaged] = useState(false);
-    const [compensation, setCompensation] = useState(); 
+    const {items, setItems} = useContext(BoxContext)
+
 
     const handleToggle = () => {
         setIsDamaged(!isDamaged);
@@ -29,6 +34,7 @@ const DamageComponent = () => {
                             Upload Photo
                             <input
                                 type="file"
+                                accept="image/png, image/jpeg"
                                 hidden
                             />
                         </Button>
@@ -37,11 +43,6 @@ const DamageComponent = () => {
                         <Button variant="outlined" className="view-button">
                             View Damaged Photos
                         </Button>
-                    </div>
-                    <div className="box">
-                        <Typography variant="h6" className="compensation-text">
-                            Compensation: ${compensation}
-                        </Typography>
                     </div>
                 </div>
             )}

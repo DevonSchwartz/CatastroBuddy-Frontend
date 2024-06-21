@@ -1,5 +1,8 @@
+import React, {useContext} from 'react';
+
 import { Box, Button } from '@mui/material';
 import DamageComponent from './DamageComponent';
+import { BoxContext } from "../context-providers/BoxContext";
 
 // used for subboxes 
 const BoxStyle = {
@@ -30,6 +33,8 @@ const ItemBox = (props) => {
     // parameterized functions
     const deleteBox = props.deleteBoxFunction
     const contextProviderRouter = props.contextProviderRouter
+
+    let {items} = useContext(BoxContext)
 
     const handleRemoveClick = () => {
         deleteBox(boxId, boxIndex);
@@ -92,6 +97,13 @@ const ItemBox = (props) => {
         </Box>
     )
 
+    const damaged = (
+        <DamageComponent 
+            key={boxId}
+            index={boxIndex} 
+        />
+    )
+
     return (
         <div style={{
             marginLeft: '25%',
@@ -116,9 +128,7 @@ const ItemBox = (props) => {
                 {uploadImage}
             </div>
             <div style={{ flex: 1 }}>
-                <DamageComponent 
-                    key={boxId} 
-                />
+                {boxIndex >= items.length ? null : damaged}
             </div>
         </div>
     );
