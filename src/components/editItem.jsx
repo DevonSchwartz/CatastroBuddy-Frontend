@@ -104,6 +104,8 @@ const EditItem = () => {
           <label>Photo:</label>
           <input
             type="file"
+            accept="image/png, image/jpeg"
+            name="image"
             onChange={handleImageChange}
           />
         </div>

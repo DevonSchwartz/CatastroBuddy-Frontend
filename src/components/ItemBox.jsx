@@ -23,7 +23,7 @@ const ItemBox = (props) => {
     const itemName = props.itemName
     const description = props.description
     const price = props.price
-    const originalPhoto = props.original
+    const originalPhoto = props.originalPhoto
     const boxId = props.boxId
     const boxIndex = props.boxIndex
 
@@ -87,7 +87,8 @@ const ItemBox = (props) => {
             bgcolor="white" p={1}
             justifyContent="center"
             sx={BoxStyle}>
-            <img src={originalPhoto} alt='Original Photo'></img>
+            <img src={`data:image/png;base64, ${originalPhoto}`} alt='Original Photo' 
+                width={250} height={250}></img>
         </Box>
     )
 
