@@ -9,13 +9,6 @@ export const BoxProvider = ({ children }) => {
   const [clientId, setClientId] = useState("")
   const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   const clientData = localStorage.getItem('clientJSON');
-  //   if (clientData) {
-  //     setStoredData(JSON.parse(clientData));
-  //   }
-  // }, []);
-
   const addBox = () => {
     setBoxes([...boxes, { id: Date.now() }]);
   };

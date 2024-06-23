@@ -1,6 +1,7 @@
 import React, {useState, useContext} from 'react';
-import { useNavigate, useLocation} from 'react-router-dom';
+import {useLocation} from 'react-router-dom';
 import { BoxContext } from "../context-providers/BoxContext";
+import { convertToBase64 } from '../utils';
 import './css/editItem.css';
 
 
@@ -10,9 +11,7 @@ import './css/editItem.css';
 const EditItem = () => {
   const location = useLocation();
   const { state } = location; // item and index passed in from box
-
-  const {items, setItems} = useContext(BoxContext)
-  
+  const {items, setItems, goToPage} = useContext(BoxContext)
   const defaultItem = {
     name: 'Sample Item',
     description: 'This is a sample item.',
@@ -23,13 +22,7 @@ const EditItem = () => {
   const [description, setDescription] = useState(state?.item?.description || defaultItem.description);
   const [price, setPrice] = useState(state?.item?.price || defaultItem.price);
   const [image, setImage] = useState(state?.item?.originalPhoto || defaultItem.originalPhoto);
-  // const [newItems, setNewItems] = useState([])
-  
-  // if (items && state?.index >= items.length) {
-  //   setNewItems([...items, state.item])
-  // } else {
-  //   setNewItems(items)
-  // }
+ 
 
   let newItems = items && state?.index >= items.length ? [...items, state.item] : items
 
@@ -46,22 +39,6 @@ const EditItem = () => {
     }
   };
 
-  
-  const navigate = useNavigate();
-
-  const handleImageChange = (e) => {
-    setImage(e.target.files[0]);
-
-    const file = e.target.files[0];
-    const reader = new FileReader();
-
-    reader.onload = () => {
-        const base64 = reader.result.split(',')[1];
-        setImage(base64);
-    };
-
-    reader.readAsDataURL(file);
-  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -69,7 +46,7 @@ const EditItem = () => {
   };
 
   const handleCancel = () => {
-    navigate(-1);
+    goToPage(-1, null)
   };
 
   return (
@@ -106,11 +83,11 @@ const EditItem = () => {
             type="file"
             accept="image/png, image/jpeg"
             name="image"
-            onChange={handleImageChange}
+            onChange={(e) => {convertToBase64(e, setImage)}}
           />
         </div>
         <button type="submit" onClick={() => {
-          navigate(-1)
+          goToPage(-1, null)
           saveToLocalStorage()
         }}>Save Changes</button>
       </form>

@@ -1,5 +1,4 @@
 import React, {useContext} from 'react';
-
 import { Box, Button } from '@mui/material';
 import DamageComponent from './DamageComponent';
 import { BoxContext } from "../context-providers/BoxContext";
@@ -29,19 +28,15 @@ const ItemBox = (props) => {
     const originalPhoto = props.originalPhoto
     const boxId = props.boxId
     const boxIndex = props.boxIndex
-
-    // parameterized functions
-    const deleteBox = props.deleteBoxFunction
-    const contextProviderRouter = props.contextProviderRouter
-
-    let {items} = useContext(BoxContext)
+    
+    let {items, goToPage, deleteBox} = useContext(BoxContext)
 
     const handleRemoveClick = () => {
         deleteBox(boxId, boxIndex);
     };
 
     const handleEditClick = () => {
-        contextProviderRouter('/editItem', 
+        goToPage('/editItem', 
             {state: {
                 item: {
                     itemName: itemName,
