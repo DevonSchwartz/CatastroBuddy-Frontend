@@ -24,9 +24,7 @@ const ItemBoxRenderer = () => {
                         price={itemNotFound(items,index,"description") ? `[Price]`: items?.[index].price}
                         originalPhoto={itemNotFound(items,index,"originalPhoto") ? null: items?.[index].originalPhoto}
                         boxId={box.id}
-                        boxIndex={index}
-                        deleteBoxFunction={deleteBox}
-                        contextProviderRouter={goToPage}>
+                        boxIndex={index}>
                     </ItemBox>
                 )
                 )}

@@ -1,13 +1,11 @@
 import React, { useState, useContext} from 'react'
-import { useNavigate } from 'react-router-dom';
 import { BoxContext } from "../context-providers/BoxContext";
 import './css/login.css';
 
 const Login = () => {
   const [userName, setUser] = useState('')
   const [userError, setUserError] = useState('')
-  const navigate = useNavigate(); 
-  const {setClientId} = useContext(BoxContext)
+  const {setClientId, goToPage} = useContext(BoxContext)
 
 
   const onButtonClick = () => {
@@ -18,7 +16,7 @@ const Login = () => {
       return
     }
     setClientId(userName)
-    navigate("/AddItems"); 
+    goToPage("/AddItems"); 
   }
 
   // useEffect(() => {
