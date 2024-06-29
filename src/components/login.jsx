@@ -1,11 +1,12 @@
 import React, { useState, useContext} from 'react'
 import { BoxContext } from "../context-providers/BoxContext";
+import { API_ENDPOINT } from '../utils';
 import './css/login.css';
 
 const Login = () => {
   const [userName, setUser] = useState('')
   const [userError, setUserError] = useState('')
-  const {setClientId, goToPage} = useContext(BoxContext)
+  const {setClientId, goToPage, setItems} = useContext(BoxContext)
 
 
   const onButtonClick = () => {
@@ -15,8 +16,28 @@ const Login = () => {
       setUserError('Please enter your username')
       return
     }
-    setClientId(userName)
-    goToPage("/AddItems"); 
+
+    fetch (`${API_ENDPOINT}/entry/${userName}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+      .then((response) => {
+        if (response.ok) {
+          return response.json()
+        }
+        throw new Error(`Network response was not ok: status ${response.status}`)
+      })
+      .then((data) => {
+        setClientId(userName)
+        setItems(data.items)
+        goToPage('AddItems')
+      })
+      .catch((error) => { 
+        setUserError('Please enter your username')
+        console.error('There has been a problem with your fetch operation:', error) }
+      )
   }
 
   // useEffect(() => {

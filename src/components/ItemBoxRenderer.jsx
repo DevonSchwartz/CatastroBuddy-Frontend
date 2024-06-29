@@ -8,7 +8,7 @@ import "./css/ItemBoxRenderer.css"
 // Render all the ItemBoxes from the current session's state
 // TODO: Connect backend REST API call to load items from the DB 
 const ItemBoxRenderer = () => {
-    const {boxes, deleteBox, goToPage, items} = useContext(BoxContext)
+    const {boxes, items} = useContext(BoxContext)
 
     return (
         <div>
