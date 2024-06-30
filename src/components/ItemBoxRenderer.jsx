@@ -33,11 +33,6 @@ const ItemBoxRenderer = () => {
                 {boxes.map((box, index) => (
                     <ItemBox
                         key={box.id}
-                        itemName={itemNotFound(items,index,"itemName") ? `[Item]`: items?.[index].itemName}
-                        description={itemNotFound(items,index,"description") ? `[Description]`: items?.[index].description}
-                        price={itemNotFound(items,index,"description") ? `[Price]`: items?.[index].price}
-                        originalPhoto={itemNotFound(items,index,"originalPhoto") ? null: items?.[index].originalPhoto}
-                        _item_id={itemNotFound(items,index,"_item_id") ? null: items?.[index]._item_id}
                         boxId={box.id}
                         boxIndex={index}
                         >

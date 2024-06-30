@@ -1,4 +1,4 @@
-import React, {useState, useContext, useEffect} from 'react';
+import React, {useState, useContext} from 'react';
 import {useLocation} from 'react-router-dom';
 import { BoxContext } from "../context-providers/BoxContext";
 import { convertToBase64 } from '../utils';
@@ -21,32 +21,22 @@ const EditItem = () => {
     originalPhoto: null,
     damaged: false,
     damagedPhoto: null,
-    _item_id: ''
   };
 
   const [name, setName] = useState(state?.item?.itemName || defaultItem.name);
   const [description, setDescription] = useState(state?.item?.description || defaultItem.description);
   const [price, setPrice] = useState(state?.item?.price || defaultItem.price);
   const [image, setImage] = useState(state?.item?.originalPhoto || defaultItem.originalPhoto);
-  const [damaged] = useState(state?.item?.damaged || defaultItem.damaged);
-  const [damagedPhoto] = useState(state?.item?.damagedPhoto || defaultItem.damagedPhoto);
-  const [_item_id, setItemId] = useState(state?.item?._item_id || defaultItem._item_id);
- 
 
   let newItems = items && state?.index >= items.length ? [...items, state.item] : items
 
-
-  useEffect(()=>{saveState()}, [_item_id]); // save the state when item id is updated by POST request
-
   // handler to save items to state variables. Will be trigged when save is pressed
-  const saveState = () => {
+  const saveState = (_item_id) => {
     if (newItems?.[state?.index]) {
       newItems[state.index].itemName = name
       newItems[state.index].description = description
       newItems[state.index].price = price
       newItems[state.index].originalPhoto = image
-      newItems[state.index].damaged = damaged
-      newItems[state.index].damagedPhoto = damagedPhoto
       newItems[state.index]._item_id = _item_id
       setItems(newItems)
       console.log(items)
@@ -67,8 +57,8 @@ const EditItem = () => {
         description: description,
         price: price,
         originalPhoto: image, 
-        damaged: damaged,
-        damagedPhoto: damagedPhoto
+        damaged: newItems[state.index].damaged,
+        damagedPhoto: newItems[state.index].damagedPhoto
       })
     })
       .then((response) => {
@@ -79,7 +69,7 @@ const EditItem = () => {
         throw new Error(`Network response was not ok: status ${response.status}`)
       })
       .then((data) => {
-        setItemId(data._item_id)
+        saveState(data._item_id)
         goToPage(-1, null)
       })
       .catch((error) => { 
@@ -90,6 +80,7 @@ const EditItem = () => {
   // update the item in the db
   const updateItem = () => {
     const clientId = localStorage.getItem('clientId')
+    const _item_id = items[state.index]._item_id
 
     fetch (`${API_ENDPOINT}/entry/${clientId}/${_item_id}`, {
       method: 'PUT',
@@ -101,8 +92,8 @@ const EditItem = () => {
         description: description,
         price: price,
         originalPhoto: image, 
-        damaged: damaged,
-        damagedPhoto: damagedPhoto
+        damaged: items[state.index].damaged,
+        damagedPhoto: items[state.index].damagedPhoto
       })
     })
       .then((response) => {
@@ -112,7 +103,7 @@ const EditItem = () => {
         }
       })
       .then(() => {
-        saveState()
+        saveState(_item_id)
         goToPage(-1, null)
       })
       .catch((error) => { 
