@@ -20,7 +20,8 @@ const EditItem = () => {
     price: 100,
     originalPhoto: null,
     damaged: false,
-    damagedPhoto: null
+    damagedPhoto: null,
+    _item_id: ''
   };
 
   const [name, setName] = useState(state?.item?.itemName || defaultItem.name);
@@ -29,7 +30,7 @@ const EditItem = () => {
   const [image, setImage] = useState(state?.item?.originalPhoto || defaultItem.originalPhoto);
   const [damaged] = useState(state?.item?.damaged || defaultItem.damaged);
   const [damagedPhoto] = useState(state?.item?.damagedPhoto || defaultItem.damagedPhoto);
-  const [itemId, setItemId] = useState('');
+  const [_item_id, setItemId] = useState(state?.item?._item_id || defaultItem._item_id);
  
 
   let newItems = items && state?.index >= items.length ? [...items, state.item] : items
@@ -44,7 +45,7 @@ const EditItem = () => {
       newItems[state.index].originalPhoto = image
       newItems[state.index].damaged = damaged
       newItems[state.index].damagedPhoto = damagedPhoto
-      newItems[state.index]._item_id = itemId
+      newItems[state.index]._item_id = _item_id
       setItems(newItems)
       console.log(items)
     }
@@ -52,7 +53,6 @@ const EditItem = () => {
 
   // push new item to items in db
   const pushItem = () => {
-
     const clientId = localStorage.getItem('clientId')
 
     fetch (`${API_ENDPOINT}/entry/${clientId}`, {
@@ -85,6 +85,39 @@ const EditItem = () => {
         console.error('There has been a problem with your fetch operation:', error) 
       })
   }
+
+  // update the item in the db
+  const updateItem = () => {
+    const clientId = localStorage.getItem('clientId')
+
+    fetch (`${API_ENDPOINT}/entry/${clientId}/${_item_id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify( {
+        itemName: name,
+        description: description,
+        price: price,
+        originalPhoto: image, 
+        damaged: damaged,
+        damagedPhoto: damagedPhoto
+      })
+    })
+      .then((response) => {
+        console.log(response)
+        if (!response.ok) {
+          throw new Error(`Network response was not ok: status ${response.status}`)
+        }
+      })
+      .then(() => {
+        saveState()
+        goToPage(-1, null)
+      })
+      .catch((error) => { 
+        console.error('There has been a problem with your fetch operation:', error) 
+      })
+    }
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -135,6 +168,8 @@ const EditItem = () => {
         <button type="submit" onClick={() => {
           if (state?.index >= items.length) {
             pushItem()
+          } else {
+            updateItem()
           }
         }}>Save Changes</button>
       </form>

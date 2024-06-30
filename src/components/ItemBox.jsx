@@ -26,6 +26,7 @@ const ItemBox = (props) => {
     const description = props.description
     const price = props.price
     const originalPhoto = props.originalPhoto
+    const _item_id = props._item_id
     const boxId = props.boxId
     const boxIndex = props.boxIndex
     
@@ -45,6 +46,7 @@ const ItemBox = (props) => {
                     originalPhoto: originalPhoto,
                     damaged: false,
                     damagedPhoto: null,
+                    _item_id: _item_id
                 },
                 index: boxIndex
         }});
