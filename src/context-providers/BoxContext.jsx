@@ -19,27 +19,32 @@ export const BoxProvider = ({ children }) => {
   // nextFunction: function to execute on successful response
   // index: index of the item to delete [0,items.length - 1]
   const deleteItemServer = (nextFunction, index) => {
-    const clientId = localStorage.getItem('clientId')
-    const _item_id = items?.[index]._item_id
-
-    fetch (`${API_ENDPOINT}/entry/${clientId}/${_item_id}`, {
+    // do not delete if there are no items
+    if (items.length >= 1) {
+      const clientId = localStorage.getItem('clientId')
+      const _item_id = items?.[index]._item_id
+      fetch (`${API_ENDPOINT}/entry/${clientId}/${_item_id}`, {
         method: 'DELETE',
         headers: {
             'Content-Type': 'application/json'
         }
-    })
-    .then((response) => {
-        if (!response.ok) {
-            throw new Error(`Network response was not ok: status ${response.status}`)
-        }
-    })
-    .then(() => {
+      })
+      .then((response) => {
+          if (!response.ok) {
+              throw new Error(`Network response was not ok: status ${response.status}`)
+          }
+      })
+      .then(() => {
+          nextFunction()
+      })
+      .catch((error) => { 
+          console.error('There has been a problem with your fetch operation:', error) 
+      })
+    } else {
         nextFunction()
-    })
-    .catch((error) => { 
-        console.error('There has been a problem with your fetch operation:', error) 
-    })
+    }
   }
+    
 
   // add a single box
   const addBox = () => {
