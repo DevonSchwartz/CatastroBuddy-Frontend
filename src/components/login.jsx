@@ -1,4 +1,4 @@
-import React, { useState, useContext} from 'react'
+import React, { useState, useContext, useEffect} from 'react'
 import { BoxContext } from "../context-providers/BoxContext";
 import { API_ENDPOINT } from '../utils';
 import './css/login.css';
@@ -7,6 +7,10 @@ const Login = () => {
   const [userName, setUser] = useState('')
   const [userError, setUserError] = useState('')
   const {goToPage, setItems, addBoxes} = useContext(BoxContext)
+
+  useEffect(() => {
+    localStorage.clear()
+  }); 
 
 
   const onButtonClick = () => {

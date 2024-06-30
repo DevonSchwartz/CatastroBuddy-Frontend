@@ -7,12 +7,6 @@ import DamageComponent from './components/DamageComponent';
 import EditItem from './components/editItem';
 import { BoxProvider } from './context-providers/BoxContext';
 function App() {
-  // clear local storage on page load
-  useEffect(() => {
-    localStorage.setItem('items', JSON.stringify([]));
-  }); 
-
-
   return (
     <React.StrictMode>
         <BrowserRouter>
