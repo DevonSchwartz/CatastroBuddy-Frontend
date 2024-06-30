@@ -45,11 +45,6 @@ const Login = () => {
         console.error('There has been a problem with your fetch operation:', error) }
       )
     }
-
-  // useEffect(() => {
-  //   let clientData = {clientId: userName, items: []}
-  //   localStorage.setItem('clientJSON', JSON.stringify(clientData));
-  // }, [userName]);
   
   return (
     <div className={'mainContainer'}>
