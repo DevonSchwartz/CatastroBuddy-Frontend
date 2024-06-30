@@ -25,6 +25,7 @@ const DamageComponent = (props) => {
     const updateDamage = (nextFunction, newImage) => {
         const clientId = localStorage.getItem('clientId')
         const _item_id = items?.[index]._item_id
+        console.log(items)
 
         fetch (`${API_ENDPOINT}/entry/${clientId}/${_item_id}`, {
             method: 'PUT',

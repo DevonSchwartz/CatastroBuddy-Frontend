@@ -1,4 +1,4 @@
-import React, {useState, useContext} from 'react';
+import React, {useState, useContext, useEffect} from 'react';
 import {useLocation} from 'react-router-dom';
 import { BoxContext } from "../context-providers/BoxContext";
 import { convertToBase64 } from '../utils';
@@ -35,6 +35,8 @@ const EditItem = () => {
 
   let newItems = items && state?.index >= items.length ? [...items, state.item] : items
 
+
+  useEffect(()=>{saveState()}, [_item_id]); // save the state when item id is updated by POST request
 
   // handler to save items to state variables. Will be trigged when save is pressed
   const saveState = () => {
@@ -78,7 +80,6 @@ const EditItem = () => {
       })
       .then((data) => {
         setItemId(data._item_id)
-        saveState()
         goToPage(-1, null)
       })
       .catch((error) => { 
