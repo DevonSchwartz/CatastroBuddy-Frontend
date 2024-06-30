@@ -37,6 +37,7 @@ const DamageComponent = (props) => {
             items[index].damagedPhoto = image
             setDamagedImage(items[index].damagedPhoto)
             setItems(items)
+            localStorage.setItem('items', JSON.stringify(items));
         }
     }
 

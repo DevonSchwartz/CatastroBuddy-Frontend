@@ -20,7 +20,7 @@ const ItemBoxRenderer = () => {
         if (items.length > boxes.length) {
             addBoxes(items.length - boxes.length)
         }
-    }, [items])
+    }, [items, addBoxes, boxes])
 
 
 
