@@ -6,7 +6,7 @@ import './css/login.css';
 const Login = () => {
   const [userName, setUser] = useState('')
   const [userError, setUserError] = useState('')
-  const {setClientId, goToPage, setItems} = useContext(BoxContext)
+  const {goToPage, setItems, addBoxes} = useContext(BoxContext)
 
 
   const onButtonClick = () => {
@@ -17,6 +17,7 @@ const Login = () => {
       return
     }
 
+    // retrieve the items from the server
     fetch (`${API_ENDPOINT}/entry/${userName}`, {
       method: 'GET',
       headers: {
@@ -30,15 +31,16 @@ const Login = () => {
         throw new Error(`Network response was not ok: status ${response.status}`)
       })
       .then((data) => {
-        setClientId(userName)
+        localStorage.setItem('clientId', userName)
         setItems(data.items)
+        addBoxes(data.items.length)
         goToPage('AddItems')
       })
       .catch((error) => { 
         setUserError('Please enter your username')
         console.error('There has been a problem with your fetch operation:', error) }
       )
-  }
+    }
 
   // useEffect(() => {
   //   let clientData = {clientId: userName, items: []}

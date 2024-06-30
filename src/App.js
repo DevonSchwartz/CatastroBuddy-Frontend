@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Routes, Route, BrowserRouter } from 'react-router-dom';
 import Login from './components/login';
 import Welcome from './components/welcome';
@@ -7,6 +7,12 @@ import DamageComponent from './components/DamageComponent';
 import EditItem from './components/editItem';
 import { BoxProvider } from './context-providers/BoxContext';
 function App() {
+  // clear local storage on page load
+  useEffect(() => {
+    localStorage.setItem('items', JSON.stringify([]));
+  }); 
+
+
   return (
     <React.StrictMode>
         <BrowserRouter>

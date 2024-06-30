@@ -26,6 +26,7 @@ const DamageComponent = (props) => {
         if (items?.[index]) {
             items[index].damaged = !items[index].damaged
             setItems(items)
+            localStorage.setItem('items', JSON.stringify(items));
         }
     };
 

@@ -1,4 +1,4 @@
-import React, {useContext} from "react";
+import React, {useContext, useEffect} from "react";
 import AddItemButton from "./AddItemButton"
 import ItemBox from "./ItemBox"
 import { BoxContext } from "../context-providers/BoxContext";
@@ -8,7 +8,21 @@ import "./css/ItemBoxRenderer.css"
 // Render all the ItemBoxes from the current session's state
 // TODO: Connect backend REST API call to load items from the DB 
 const ItemBoxRenderer = () => {
-    const {boxes, items} = useContext(BoxContext)
+    const {boxes, items, addBoxes} = useContext(BoxContext);
+
+    // save items to local storage
+    useEffect(() => {
+        localStorage.setItem('items', JSON.stringify(items)); 
+    }, [items])
+
+    // add boxes if there are more items than boxes
+    useEffect(() => {
+        if (items.length > boxes.length) {
+            addBoxes(items.length - boxes.length)
+        }
+    }, [items])
+
+
 
     return (
         <div>
