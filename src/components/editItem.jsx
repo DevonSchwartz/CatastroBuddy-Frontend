@@ -2,6 +2,7 @@ import React, {useState, useContext} from 'react';
 import {useLocation} from 'react-router-dom';
 import { BoxContext } from "../context-providers/BoxContext";
 import { convertToBase64 } from '../utils';
+import { API_ENDPOINT } from '../utils';
 import './css/editItem.css';
 
 
@@ -12,33 +13,103 @@ const EditItem = () => {
   const location = useLocation();
   const { state } = location; // item and index passed in from box
   const {items, setItems, goToPage} = useContext(BoxContext)
+
   const defaultItem = {
     name: 'Sample Item',
     description: 'This is a sample item.',
     price: 100,
+    originalPhoto: null,
+    damaged: false,
+    damagedPhoto: null,
   };
 
   const [name, setName] = useState(state?.item?.itemName || defaultItem.name);
   const [description, setDescription] = useState(state?.item?.description || defaultItem.description);
   const [price, setPrice] = useState(state?.item?.price || defaultItem.price);
   const [image, setImage] = useState(state?.item?.originalPhoto || defaultItem.originalPhoto);
- 
 
   let newItems = items && state?.index >= items.length ? [...items, state.item] : items
 
-
-  // handler to save items to local storage. Will be trigged when save is pressed
-  const saveToLocalStorage = () => {
+  // handler to save items to state variables. Will be trigged when save is pressed
+  const saveState = (_item_id) => {
     if (newItems?.[state?.index]) {
       newItems[state.index].itemName = name
       newItems[state.index].description = description
       newItems[state.index].price = price
       newItems[state.index].originalPhoto = image
+      newItems[state.index]._item_id = _item_id
       setItems(newItems)
       console.log(items)
     }
   };
 
+  // push new item to items in db
+  const pushItem = () => {
+    const clientId = localStorage.getItem('clientId')
+
+    fetch (`${API_ENDPOINT}/entry/${clientId}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify( {
+        itemName: name,
+        description: description,
+        price: price,
+        originalPhoto: image, 
+        damaged: newItems[state.index].damaged,
+        damagedPhoto: newItems[state.index].damagedPhoto
+      })
+    })
+      .then((response) => {
+        console.log(response)
+        if (response.ok) {
+          return response.json()
+        }
+        throw new Error(`Network response was not ok: status ${response.status}`)
+      })
+      .then((data) => {
+        saveState(data._item_id)
+        goToPage(-1, null)
+      })
+      .catch((error) => { 
+        console.error('There has been a problem with your fetch operation:', error) 
+      })
+  }
+
+  // update the item in the db
+  const updateItem = () => {
+    const clientId = localStorage.getItem('clientId')
+    const _item_id = items[state.index]._item_id
+
+    fetch (`${API_ENDPOINT}/entry/${clientId}/${_item_id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify( {
+        itemName: name,
+        description: description,
+        price: price,
+        originalPhoto: image, 
+        damaged: items[state.index].damaged,
+        damagedPhoto: items[state.index].damagedPhoto
+      })
+    })
+      .then((response) => {
+        console.log(response)
+        if (!response.ok) {
+          throw new Error(`Network response was not ok: status ${response.status}`)
+        }
+      })
+      .then(() => {
+        saveState(_item_id)
+        goToPage(-1, null)
+      })
+      .catch((error) => { 
+        console.error('There has been a problem with your fetch operation:', error) 
+      })
+    }
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -87,8 +158,11 @@ const EditItem = () => {
           />
         </div>
         <button type="submit" onClick={() => {
-          goToPage(-1, null)
-          saveToLocalStorage()
+          if (state?.index >= items.length) {
+            pushItem()
+          } else {
+            updateItem()
+          }
         }}>Save Changes</button>
       </form>
     </div>

@@ -21,15 +21,19 @@ const BoxStyle = {
 // deleteBoxFunction: function pointer that takes a number
 // contextProviderRouter: function pointer that takes a string
 const ItemBox = (props) => {
-    // parameterized values
-    const itemName = props.itemName
-    const description = props.description
-    const price = props.price
-    const originalPhoto = props.originalPhoto
-    const boxId = props.boxId
-    const boxIndex = props.boxIndex
-    
     let {items, goToPage, deleteBox} = useContext(BoxContext)
+
+    // parameterized values
+    const boxIndex = props.boxIndex
+    const boxId = props.boxId
+
+    const itemName = items?.[boxIndex] ? items[boxIndex].itemName : 'Item Name'
+    const description = items?.[boxIndex] ? items[boxIndex].description : 'Description'
+    const price = items?.[boxIndex] ? items[boxIndex].price : 'Price'
+    const originalPhoto = items?.[boxIndex] ? items[boxIndex].originalPhoto : null
+    const damaged = items?.[boxIndex] ? items[boxIndex].damaged : false
+    const damagedPhoto = items?.[boxIndex] ? items[boxIndex].damagedPhoto : null
+    
 
     const handleRemoveClick = () => {
         deleteBox(boxId, boxIndex);
@@ -43,8 +47,8 @@ const ItemBox = (props) => {
                     description: description,
                     price: price,
                     originalPhoto: originalPhoto,
-                    damaged: false,
-                    damagedPhoto: null,
+                    damaged: damaged,
+                    damagedPhoto: damagedPhoto,
                 },
                 index: boxIndex
         }});
@@ -92,7 +96,7 @@ const ItemBox = (props) => {
         </Box>
     )
 
-    const damaged = (
+    const damagedComponent = (
         <DamageComponent 
             key={boxId}
             index={boxIndex} 
@@ -123,7 +127,7 @@ const ItemBox = (props) => {
                 {uploadImage}
             </div>
             <div style={{ flex: 1 }}>
-                {boxIndex >= items.length ? null : damaged}
+                {boxIndex >= items.length ? null : damagedComponent}
             </div>
         </div>
     );

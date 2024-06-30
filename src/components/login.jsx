@@ -1,11 +1,16 @@
-import React, { useState, useContext} from 'react'
+import React, { useState, useContext, useEffect} from 'react'
 import { BoxContext } from "../context-providers/BoxContext";
+import { API_ENDPOINT } from '../utils';
 import './css/login.css';
 
 const Login = () => {
   const [userName, setUser] = useState('')
   const [userError, setUserError] = useState('')
-  const {setClientId, goToPage} = useContext(BoxContext)
+  const {goToPage, setItems, addBoxes} = useContext(BoxContext)
+
+  useEffect(() => {
+    localStorage.clear()
+  }); 
 
 
   const onButtonClick = () => {
@@ -15,14 +20,31 @@ const Login = () => {
       setUserError('Please enter your username')
       return
     }
-    setClientId(userName)
-    goToPage("/AddItems"); 
-  }
 
-  // useEffect(() => {
-  //   let clientData = {clientId: userName, items: []}
-  //   localStorage.setItem('clientJSON', JSON.stringify(clientData));
-  // }, [userName]);
+    // retrieve the items from the server
+    fetch (`${API_ENDPOINT}/entry/${userName}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+      .then((response) => {
+        if (response.ok) {
+          return response.json()
+        }
+        throw new Error(`Network response was not ok: status ${response.status}`)
+      })
+      .then((data) => {
+        localStorage.setItem('clientId', userName)
+        setItems(data.items)
+        addBoxes(data.items.length)
+        goToPage('AddItems')
+      })
+      .catch((error) => { 
+        setUserError('Please enter your username')
+        console.error('There has been a problem with your fetch operation:', error) }
+      )
+    }
   
   return (
     <div className={'mainContainer'}>

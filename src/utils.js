@@ -16,3 +16,5 @@ export const convertToBase64 = (e, setImage) => {
 
     reader.readAsDataURL(file);
 }
+
+export const API_ENDPOINT = 'http://127.0.0.1:5000'

@@ -1,8 +1,13 @@
 import './css/welcome.css';
-import React from 'react';
+import React, {useEffect} from 'react';
 import { useNavigate } from 'react-router-dom';
 
 function Welcome() {
+
+  useEffect(() => {
+    localStorage.clear()
+  }); 
+
   const navigate = useNavigate()
 
   const handleLogin = () => {
