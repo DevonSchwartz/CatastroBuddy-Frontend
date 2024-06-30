@@ -20,7 +20,7 @@ const DamageComponent = (props) => {
     const [damagedImage, setDamagedImage] = useState(items?.[index].damagedPhoto) 
 
 
-
+    // toggle the damaged state of the item
     const handleToggle = () => {
         setIsDamaged(!isDamaged);
         if (items?.[index]) {
