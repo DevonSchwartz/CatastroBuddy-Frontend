@@ -14,7 +14,7 @@ Clone the repository cd into **CatastroBuddy-Frontend**
 3. Start the app with `yarn start`. The app should run on http://localhost:3000, the default port for node applications
 
 ## How to Use the App
-The backend must be set up before the app is run. Go to (https://github.com/DevonSchwartz/CatastroBuddy-Backend) for how to set up the backend
+The backend must be set up before the app is run. Go to https://github.com/DevonSchwartz/CatastroBuddy-Backend for how to set up the backend
 1. Login with one of two usernames "John Doe" or "Jane Doe"
 2. Click **Add Item** to add an item to your profile. 
 3. Click **Edit Item** to save information about your household item and then click **Save Changes** when complete — this will save information to the database
